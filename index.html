@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <h1>Signup Form</h1>
+
+
+    <form onsubmit="signup(); return false ">
+
+        <label for="firstName">FirstName</label>
+        <input type="text" id="firstName" required>
+
+        <br>
+        <label for="lastName">LastName</label>
+        <input type="text" id="lastName" required>
+
+        <br>
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+
+        <br>
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+
+        <br>
+        <label for="repeatpassword">Repeat Password</label>
+        <input type="password" id="repeatpassword" required>
+
+        <br>
+        <input type="submit" value="Signup">
+    </form>
+
+    <p id="message"></p>
+
+    <br>
+    <br>
+   
+
+    <script>
+
+        function signup() {
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var repeatpassword = document.getElementById('repeatpassword').value;
+
+            if(password !== repeatpassword) {
+                document.querySelector("#message").innerHTML = `password donot match, please try again`;
+                
+            }
+
+            axios.post('http://localhost:3000/signup', {
+                firstName: firstName,
+                lastName: lastName,
+                email:email,
+                password: password,
+                repeatpassword: repeatpassword
+
+               
+
+
+
+
+
+                
+
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    document.querySelector("#message").innerHTML = error.response.data.message;
+                });
+
+
+
+        }
+
+
+        function getAllUsers() {
+
+            axios.get("https://restful-api-server-1.herokuapp.com//user")
+                .then(function (response) {
+                    console.log(response.data);
+
+                    response.data.map(eachUser => {
+                        document.querySelector("#allUserList").innerHTML +=
+
+                            `<b>${eachUser.fullname}</b> ${eachUser.username} ${eachUser.password} <br>`;
+                    })
+
+
+                })
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
