@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <h1>Signup Form</h1>
+    <h1>Login Form</h1>
 
 
     <form onsubmit="logIn(); return false ">
@@ -43,12 +43,12 @@
     <br>
     <script>
         function logIn() {
-            let Email = document.querySelector("#email").value;
-            let Password = document.querySelector("#password").value;
+            let email = document.querySelector("#email").value;
+            let password = document.querySelector("#password").value;
 
             axios.post('https://login-signup-form-1.herokuapp.com/login', {
-                Email: email,
-                Password: password,
+                email: email,
+                password: password,
             })
                 .then(function (response) {
                     console.log(response.data);
