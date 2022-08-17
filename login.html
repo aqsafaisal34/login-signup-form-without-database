@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            background-color: grey;
+            text-align: center;
+            color: white;
+        }
+
+        #login {
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Signup Form</h1>
+
+
+    <form onsubmit="logIn(); return false ">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <br>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <br>
+        <br>
+        <input type="submit" value="Login" id="login">
+    </form>
+    <p id="message"></p>
+
+    <br>
+    <br>
+    <script>
+        function logIn() {
+            let Email = document.querySelector("#email").value;
+            let Password = document.querySelector("#password").value;
+
+            axios.post('http://localhost:3000/signup', {
+                Email: email,
+                Password: password,
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    document.querySelector("#message").innerHTML = error.response.data.message;
+                });
+        }
+    </script>
+</body>
+
+</html>

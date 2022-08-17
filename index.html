@@ -7,43 +7,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            background-color: grey;
+            text-align: center;
+            color: white;
+        }
+
+        #submit {
+            border-radius: 5px;
+        }
+    </style>
 
 </head>
 
 <body>
-    <h1>Signup Form</h1>
+    <h1>Login Form</h1>
 
 
     <form onsubmit="signup(); return false ">
 
-        <label for="firstName">FirstName</label>
+        <label for="firstName">FirstName:</label>
         <input type="text" id="firstName" required>
 
         <br>
-        <label for="lastName">LastName</label>
+        <br>
+        <label for="lastName">LastName:</label>
         <input type="text" id="lastName" required>
-
         <br>
-        <label for="email">Email</label>
+        <br>
+        <label for="email">Email:</label>
         <input type="email" id="email" required>
-
         <br>
-        <label for="password">Password</label>
+        <br>
+        <label for="password">Password:</label>
         <input type="password" id="password" required>
-
         <br>
-        <label for="repeatpassword">Repeat Password</label>
+        <br>
+        <label for="repeatpassword">Repeat Password:</label>
         <input type="password" id="repeatpassword" required>
-
         <br>
-        <input type="submit" value="Signup">
+        <br>
+        <input type="checkbox" required> I agree with terms and conditions
+        <br>
+        <br>
+        <input type="submit" value="Signup" id="submit">
     </form>
+
+    <h4>Already have an account? <a href="login.html">Login</a></h4>
 
     <p id="message"></p>
 
     <br>
     <br>
-   
+
 
     <script>
 
@@ -54,25 +71,25 @@
             var password = document.getElementById('password').value;
             var repeatpassword = document.getElementById('repeatpassword').value;
 
-            if(password !== repeatpassword) {
-                document.querySelector("#message").innerHTML = `password donot match, please try again`;
-                
+            if (password !== repeatpassword) {
+                document.querySelector("#message").innerHTML = `Password do not match, please try again`;
+
             }
 
             axios.post('http://localhost:3000/signup', {
                 firstName: firstName,
                 lastName: lastName,
-                email:email,
+                email: email,
                 password: password,
                 repeatpassword: repeatpassword
 
-               
 
 
 
 
 
-                
+
+
 
             })
                 .then(function (response) {
@@ -87,28 +104,7 @@
 
 
         }
-
-
-        function getAllUsers() {
-
-            axios.get("https://restful-api-server-1.herokuapp.com//user")
-                .then(function (response) {
-                    console.log(response.data);
-
-                    response.data.map(eachUser => {
-                        document.querySelector("#allUserList").innerHTML +=
-
-                            `<b>${eachUser.fullname}</b> ${eachUser.username} ${eachUser.password} <br>`;
-                    })
-
-
-                })
-        }
-
-
     </script>
-
-
 </body>
 
 </html>
